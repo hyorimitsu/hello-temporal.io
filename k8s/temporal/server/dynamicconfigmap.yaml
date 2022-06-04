@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "hello-temporalio-temporal-dynamic-config"
+  namespace: temporal
+data:
+  dynamic_config.yaml: |-

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "hello-temporalio-temporal-frontend-config"
+  namespace: temporal
+data:
+  config_template.yaml: |-
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "hello-temporalio-temporal-history-config"
+  namespace: temporal
+data:
+  config_template.yaml: |-
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "hello-temporalio-temporal-matching-config"
+  namespace: temporal
+data:
+  config_template.yaml: |-
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "hello-temporalio-temporal-worker-config"
+  namespace: temporal
+data:
+  config_template.yaml: |-
