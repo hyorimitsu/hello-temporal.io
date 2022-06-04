@@ -4,14 +4,25 @@ metadata:
   name: hello-temporalio
 build:
   artifacts:
-    - image: hello-temporalio-app-api
-      context: api
+    - image: hello-temporalio-app-worker
+      context: app
+      docker:
+        dockerfile: app/Dockerfile
+        buildArgs:
+          TARGET: "worker"
+    - image: hello-temporalio-app-workflow
+      context: app
+      docker:
+        dockerfile: app/Dockerfile
+        buildArgs:
+          TARGET: "workflow"
 deploy:
   kubectl:
     manifests:
       - k8s/*.yaml
       # app
-      - k8s/app/api/*.yaml
+      - k8s/app/worker/*.yaml
+      - k8s/app/workflow/*.yaml
       # temporal
       - k8s/temporal/admintools/*.yaml
       - k8s/temporal/cassandra/*.yaml
@@ -19,10 +30,15 @@ deploy:
       - k8s/temporal/web/*.yaml
 portForward:
   - resourceType: service
-    resourceName: hello-temporalio-app-api
+    resourceName: hello-temporalio-app-worker
     namespace: app
     port: 9000
     localPort: 9000
+  - resourceType: service
+    resourceName: hello-temporalio-app-workflow
+    namespace: app
+    port: 9001
+    localPort: 9001
   - resourceType: service
     resourceName: hello-temporalio-temporal-web
     namespace: temporal

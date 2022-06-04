@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-temporalio-app-workflow
+  namespace: app
+  labels:
+    app: hello-temporalio-app-workflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-temporalio-app-workflow
+  template:
+    metadata:
+      labels:
+        app: hello-temporalio-app-workflow
+    spec:
+      containers:
+        - name: hello-temporalio-app-workflow
+          image: hello-temporalio-app-workflow:latest
