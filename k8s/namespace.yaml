@@ -1,0 +1,13 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: app
+  labels:
+    name: app
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: temporal
+  labels:
+    name: temporal
