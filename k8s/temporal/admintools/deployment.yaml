@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-temporalio-temporal-admintools
+  namespace: temporal
+  labels:
+    app: admintools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admintools
+  template:
+    metadata:
+      labels:
+        app: admintools
+    spec:
+      containers:
+        - name: admin-tools
+          image: "temporalio/admin-tools:1.16.2"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 22
+              protocol: TCP
+          env:
+            - name: TEMPORAL_CLI_ADDRESS
+              value: hello-temporalio-temporal-frontend:7233
+          livenessProbe:
+            exec:
+              command: ['ls', '/']
+            initialDelaySeconds: 5
+            periodSeconds: 5

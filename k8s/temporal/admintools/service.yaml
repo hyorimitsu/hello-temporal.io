@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-temporalio-temporal-admintools
+  namespace: temporal
+  labels:
+    app: admintools
+spec:
+  type: ClusterIP
+  selector:
+    app: admintools
+  ports:
+    - port: 22
+      targetPort: 22
+      protocol: TCP
+      name: ssh
