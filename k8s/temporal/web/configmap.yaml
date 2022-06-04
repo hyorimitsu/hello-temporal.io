@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-temporalio-temporal-web-config
+  namespace: temporal
+  labels:
+    app: web
+data:
+  config.yml: |
+    auth:
+      enabled: false
