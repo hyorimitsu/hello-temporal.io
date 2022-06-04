@@ -1,0 +1,30 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: hello-temporalio
+build:
+  artifacts:
+    - image: hello-temporalio-app-api
+      context: api
+deploy:
+  kubectl:
+    manifests:
+      - k8s/*.yaml
+      # app
+      - k8s/app/api/*.yaml
+      # temporal
+      - k8s/temporal/admintools/*.yaml
+      - k8s/temporal/cassandra/*.yaml
+      - k8s/temporal/server/*.yaml
+      - k8s/temporal/web/*.yaml
+portForward:
+  - resourceType: service
+    resourceName: hello-temporalio-app-api
+    namespace: app
+    port: 9000
+    localPort: 9000
+  - resourceType: service
+    resourceName: hello-temporalio-temporal-web
+    namespace: temporal
+    port: 8088
+    localPort: 8088
